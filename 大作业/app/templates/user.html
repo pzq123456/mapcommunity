@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
+<!DOCTYPE html>
 <table>
     <tr valign="top">
         <td><img src="{{ user.avatar(128) }}"></td>
@@ -20,7 +18,13 @@
     </tr>
 </table>    
     <hr>
+    
     {% for post in posts %}
-        {% include '_post.html' %}
+    {% include '_post.html' %}
+        {% for follow_post in follow_posts %}
+            {% if post.id==follow_post.post_id %}
+                {% include '_comment_post.html' %}
+                <h1>这是用户评论</h1>
+            {% endif %}
+        {% endfor%}
     {% endfor %}
-{% endblock %}

@@ -1,12 +1,37 @@
-<table>
-    <tr valign="top">
-        <td><img src="{{ post.author.avatar(36) }}"></td>
-        <td>
-            <a href="{{ url_for('user', username=post.author.username) }}">
-                {{ post.author.username }}
-            </a>
-            的帖子:<br>{{ post.body }}
-        </td>
-    </tr>
-</table>
+
+    <table>
+        <tr>
+            <h3>------------------------------第{{post.id }}条帖子-------------------------------</h3>
+        </tr>
+    </table>
+    
+    
+    <table>
+    
+        <tr>
+            
+            <td><img src="{{ post.author.avatar(36) }}"></td>
+            <td>
+                <a href="{{ url_for('user', username=post.author.username) }}">
+                    {{ post.author.username }}
+                </a>
+                的帖子:<br>{{ post.body }}
+            </td>
+            
+            
+        </tr>   
+    
+    
+    
+    </table>
+    
+    
+    <table>
+        <tr>
+            <h3>-------------发帖时间：{{post.timestamp }}---------------</h3>
+        </tr>
+    </table>
+    
+
+
 <!---子模板 一次只渲染一条帖子-->

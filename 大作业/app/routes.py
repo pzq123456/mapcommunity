@@ -1,12 +1,13 @@
+import flask
 from app import app,db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm,RegistrationForm,EditProfileForm,PostForm
+from app.forms import LoginForm,RegistrationForm,EditProfileForm,PostForm,CommentForm
 
 from flask_login import current_user, login_user,logout_user,login_required
 
 from werkzeug.urls import url_parse # 处理next页面问题
 
-from app.models import User,Post
+from app.models import User,Post,Follow_Post
 
 from datetime import datetime
 
@@ -18,20 +19,23 @@ def before_request():
 
 
 
-@app.route('/', methods=['GET', 'POST'])
+
 @app.route('/home', methods=['GET', 'POST'])
 @login_required # 限制访问 只有登录后才能访问
 def home():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
+        post = Post(body=form.post.data, author=current_user,lon=form.lon.data,lat=form.lat.data)
         db.session.add(post)
         db.session.commit()
         flash('帖子发表成功!')
         return redirect(url_for('home'))
     posts = current_user.followed_posts().all()
+    #follow_post = Follow_Post.query.filter_by(post_id=2).all() # 测试 获取某一个一个帖子的所有跟帖
+    follow_posts = Follow_Post.query.all()
     return render_template("home.html", title='主 页', form=form,
-                           posts=posts)
+                           posts=posts,follow_posts=follow_posts)
+
 
 
 
@@ -65,7 +69,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('home_map'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -81,13 +85,14 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-
+#     dsadasdasdas
 @app.route('/user/<username>') # 用户主页
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('user.html', user=user, posts=posts)
+    follow_posts = Follow_Post.query.filter_by(username=username).all()
+    return render_template('user.html', user=user, posts=posts,follow_posts=follow_posts)
 
 
 
@@ -141,10 +146,56 @@ def unfollow(username):
     return redirect(url_for('user', username=username))
 
 
-@app.route('/explore')
+@app.route('/explore',methods=['GET', 'POST'])
 @login_required
-def explore():
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('home.html', title='Explore', posts=posts)
+def explore(): # 正在测试评论组件
+    comment_form = CommentForm() # 实例化用户评论类
+    posts = Post.query.order_by(Post.timestamp.desc()).all() # 获取所有用户发帖表 并按时间排序
+    if comment_form.validate_on_submit():
+        if (comment_form.post_num.data <=0 or comment_form.post_num.data>Post.query.count()):
+            flash("请输入正确的帖子编号！")
+        else:
+            follow_post = Follow_Post(body=comment_form.comment.data,
+            landlord=Post.query.get(comment_form.post_num.data),
+            username=current_user.username)
+            db.session.add(follow_post)
+            db.session.commit()
+            flash('跟帖成功!')
+            return redirect(url_for('explore'))
+
+        
+    return render_template('home.html', title='Explore', posts=posts,comment_form=comment_form)
+
+
+# 接下来要针对地图开发出一套地址 实现数据的读写 跟帖等操作
+
+
+
+
+@app.route('/')
+@app.route('/home/mapview')
+def home_map():
+    return render_template('home_map.html')
+
+@app.route('/login/mapview')
+def login_map():
+    return render_template('login_map.html')
+
+@app.route('/user/mapview')
+def user_map():
+    return render_template('user_map.html')
+
+
+@app.route('/explore/mapview')
+def explore_map():
+    return render_template('explore_map.html')
+
+@app.route('/register/mapview')
+def register_map():
+    return render_template('register_map.html')
+
+@app.route('/edit_profile/mapview')
+def edit_profile_map():
+    return render_template('edit_profile_map.html')
 
 

@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+    <iframe src="{{ url_for('user', username=current_user.username) }}" style="height: 100%;width: 100%;" >
+    </iframe>
+{% endblock %}

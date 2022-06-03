@@ -1,0 +1,30 @@
+<table border="1">
+    {% if comment_form %}
+        <!--防止尝试呈现不存在的Web表单时崩溃-->
+        <tr>
+            <form action="" method="post">
+                {{ comment_form.hidden_tag() }}
+                <p>
+                    {{comment_form.post_num.label}}<br>
+                    {{comment_form.post_num}}<br>
+                    {{ comment_form.comment.label }}<br>
+                    {{ comment_form.comment(cols=32, rows=4) }}<br>
+                    <p>{{ comment_form.submit() }}</p>
+                    {% for error in comment_form.comment.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                
+            </form>
+        </tr>
+        {% endif %}
+</table>
+
+<!---评论框子模板-->
+    
+
+
+
+
+
+    

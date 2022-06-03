@@ -28,8 +28,8 @@ var displayData= function(data){
 
 
 
-var html_content=['<style type="text/css"> @import url("../static/demo.css");</style> ','<center>',
-    '<form action = "{{ request.path }}" method = "post">',
+var html_content=[
+'            <form action = "{{ request.path }}" method = "post">                          ',
 '            <label for = "lon" class="lables" style="visibility:visible;">经度</label><br>',
 '            <input type = "float" name = "lon" placeholder ="120.131267" class="lables" style="visibility:visible;"/><br>',
 '   ',
@@ -38,9 +38,6 @@ var html_content=['<style type="text/css"> @import url("../static/demo.css");</s
 '   ',
 '            <label for = "content" class="lables" >留言内容</label><br>',
 '            <textarea name = "content" placeholder = "Hello World!" class="textareastyle"></textarea><br>',
-'   ',
-'            <label for = "user" class="lables">留言人</label><br>',
-'            <input type = "text" name = "user" placeholder = "匿名" /><br>',
 '   ',
 '            <input type = "submit" class="button" value = "Submit" />',
 '         </form>','</center>'

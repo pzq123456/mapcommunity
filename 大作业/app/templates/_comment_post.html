@@ -1,0 +1,11 @@
+<table>
+    <tr> 
+        <td><img src="{{ follow_post.avatar(36) }}"></td>
+        <td>
+            <a href="{{ url_for('user', username=follow_post.username) }}">
+                {{ follow_post.username }}
+            </a>
+            的帖子:<br>{{ follow_post.body }}
+        </td>
+    </tr>   
+</table>

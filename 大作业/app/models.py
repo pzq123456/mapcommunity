@@ -44,7 +44,7 @@ class User(UserMixin,db.Model): # UserMixin包含一些login库的依赖字段
         return check_password_hash(self.password_hash, password) # 对比哈希密码
 
     def avatar(self, size): # 用户头像管理函数
-        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        digest = md5(self.username.lower().encode('utf-8')).hexdigest()
         return 'https://gravatar.loli.net/avatar/{}?d=identicon&s={}'.format(
             digest, size) # 向gravatar.com网站请求随机头像 源网站国内无法快速访问 所以采用镜像网站
 
@@ -66,17 +66,9 @@ class User(UserMixin,db.Model): # UserMixin包含一些login库的依赖字段
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
-        '''
-        return Post.query.join( #  我的这个调用表达的含义是我希望数据库创建一个临时表
-        # 它将用户动态表和关注者表中的数据结合在一起 数据将根据参数传递的条件进行合并
-            followers, (followers.c.followed_id == Post.user_id)).filter(
-                # filter()只保留follower(粉丝)是该用户的数据。
-                followers.c.follower_id == self.id).order_by(Post.timestamp.desc())
-        '''
-       
-
 
 class Post(db.Model): # 用户发帖表
+
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String()) # 帖子的主要内容
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow) # 发帖时间戳
@@ -85,7 +77,6 @@ class Post(db.Model): # 用户发帖表
     lat = db.Column(db.Float())  #纬度
     ######地理社区的新内容#####
     follow_posts=db.relationship('Follow_Post', backref='landlord', lazy='dynamic') # 一对多 外键 连接到楼主的帖子
-
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) # 外键与发帖用户相关联
     
 
@@ -98,10 +89,15 @@ class Follow_Post(db.Model): # 用户跟帖表
     body = db.Column(db.String(140)) # 跟帖内容限制长度
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow) # 跟帖时间戳
     username = db.Column(db.String(64)) # 跟帖用户名 为方便日后展示跟帖内容 这里直接写入用户名
-
+    # 记录的是发送此帖子的用户名
     post_id = db.Column(db.Integer, db.ForeignKey('post.id')) # 外键与帖子编号相关联
 
     def __repr__(self): # 该方法用于在调试时打印数据库表
-        return '<Post {}>'.format(self.body)
+        return '<Follow_Post {}>'.format(self.body)
 
+    def avatar(self, size): # 用户头像管理函数
+        digest = md5(self.username.lower().encode('utf-8')).hexdigest()
+        return 'https://gravatar.loli.net/avatar/{}?d=identicon&s={}'.format(
+            digest, size) # 向gravatar.com网站请求随机头像 源网站国内无法快速访问 所以采用镜像网站
+    # 利用用户名向国内的镜像网站请求头像服务
 

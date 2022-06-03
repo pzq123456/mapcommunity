@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField,IntegerField,FloatField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
 from wtforms import StringField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length,NumberRange
 
 #调用WTF库 创建登录表单
 class LoginForm(FlaskForm): # 用户登录表单
@@ -50,6 +50,21 @@ class EditProfileForm(FlaskForm): # 用户编辑资料表单
                 raise ValidationError('该用户名已存在，请换一个。')
 
 class PostForm(FlaskForm): # 用户发帖表单
-    post = TextAreaField('发 帖：', validators=[
+    lon =FloatField('经 度',validators=[
+        DataRequired(),NumberRange(-180,180)])#经度
+    lat = FloatField('纬 度',validators=[
+        DataRequired(),NumberRange(-90,90)]) #纬度
+    post = TextAreaField('帖 子 内 容：', validators=[
         DataRequired(), Length(min=1, max=800)])
+    
     submit = SubmitField('发布')
+
+
+
+# 跟帖表单需要跟在某一个具体的帖子后面
+class CommentForm(FlaskForm): # 用户跟帖表单
+    post_num=IntegerField('帖子编号：',validators=[
+        DataRequired()])
+    comment = TextAreaField('评 论：', validators=[
+        DataRequired(), Length(min=5, max=140)])
+    submit = SubmitField('发布评论')
