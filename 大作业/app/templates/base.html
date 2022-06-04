@@ -1,25 +1,6 @@
 <!DOCTYPE html> 
 <html>
-<head> 
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<title>地图社区：MapCommunity</title>
-<style type="text/css"> 
-html{height:100%} 
-body{height:100%;margin:0px;padding:0px} 
-#container{height:100%} 
-</style> 
-
-</script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js">
-</script>
-<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=zsuRD8fmHkCdmWzC84NDbsvwAiWBdCce">
-</script>
-
-</head> 
-
 <body> 
-    
 <table width = "100%" border = "1">
     <tr>
        <td colspan = "2" >
@@ -37,8 +18,9 @@ body{height:100%;margin:0px;padding:0px}
         
        </td>
     </tr>
-    <tr valign = "top">
-       <td width = "250" height = "1000" >
+
+    <tr valign = "top" >
+       <td width = "250" height = "1000" style="background-color:#f290ce9d;">
          {% block content %}{% endblock %}
         
             
@@ -49,12 +31,13 @@ body{height:100%;margin:0px;padding:0px}
          -->
         
        </td>
-       <td width = "500" height = "1000">
+         <td width = "500" height = "1000">
+         <iframe src="/map" style="height: 100%;width: 100%;" >
+         </iframe>
          <!----
          地图展示框 这个框里面引用的是地图数据渲染引擎
       -->
-        <div id="container"></div>
-        <script src="../static/map.js"></script>
+        
        </td>
     </tr>
     <tr>
@@ -68,4 +51,5 @@ body{height:100%;margin:0px;padding:0px}
 
 </body> 
 </html>
+
 

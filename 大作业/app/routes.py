@@ -1,6 +1,7 @@
 import flask
+from requests import post
 from app import app,db
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request,jsonify
 from app.forms import LoginForm,RegistrationForm,EditProfileForm,PostForm,CommentForm
 
 from flask_login import current_user, login_user,logout_user,login_required
@@ -10,6 +11,10 @@ from werkzeug.urls import url_parse # 处理next页面问题
 from app.models import User,Post,Follow_Post
 
 from datetime import datetime
+
+from collections import OrderedDict
+
+from hashlib import md5 # 生成MD5哈希值
 
 @app.before_request
 def before_request():
@@ -198,4 +203,60 @@ def register_map():
 def edit_profile_map():
     return render_template('edit_profile_map.html')
 
+
+
+# 接下来是地图视图引擎的接口 地图与主业务逻辑是相互独立的关系 
+    
+def post_to_dict(post):
+    return OrderedDict(
+        user = post.author.username,
+        lon = post.lon,
+        lat = post.lat,
+        content=post.body,
+        digest = md5(post.author.username.lower().encode('utf-8')).hexdigest()
+    )
+
+@app.route('/JSON', methods = ['GET', 'POST'])# 返回数据库中所有记录的post数
+@login_required # 只有登录才能看到所有的帖子
+def get_json():
+   return jsonify(list(map(post_to_dict, Post.query.all())))
+
+
+@app.route('/map', methods = ['GET', 'POST'])# json数据绘制到地图上
+def root_map():
+    if request.method == 'POST':
+      if not request.form['lon'] or not request.form['lat'] or not request.form['content']:
+         flash('Please enter all the fields', 'error')
+      else:
+         post = Post(lon=request.form['lon'], lat=request.form['lat'],body=request.form['content'],author=current_user )
+         db.session.add(post)
+         db.session.commit()
+         flash('Record was successfully added')
+         return redirect(url_for('root_map'))
+    return render_template('root_map.html')
+
+
+'''
+@app.route('/map', methods = ['GET', 'POST'])# json数据绘制到地图上
+def map():
+    return render_template('root_map.html')
+
+'''
+
+
+'''
+ if request.method == 'POST':
+      if not request.form['lon'] or not request.form['lat'] or not request.form['content']:
+         flash('Please enter all the fields', 'error')
+      else:
+         post = Post(lon=request.form['lon'], lat=request.form['lat'],body=request.form['content'],author=current_user )
+         db.session.add(post)
+         db.session.commit()
+         flash('Record was successfully added')
+         return redirect(url_for('map'))
+    elif request.method == 'GET':
+'''
+
+    
+    
 

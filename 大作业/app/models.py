@@ -5,6 +5,7 @@ from flask_login import UserMixin # flask-login的数据库依赖
 from app import login # 用户加载函数
 from hashlib import md5 # 生成MD5哈希值
 
+
 # 该模块用以定义数据库及相关操作
 @login.user_loader
 def load_user(id):
@@ -82,7 +83,7 @@ class Post(db.Model): # 用户发帖表
 
     def __repr__(self): # 该方法用于在调试时打印数据库表
         return '<Post {}>'.format(self.body)
-
+ 
 
 class Follow_Post(db.Model): # 用户跟帖表
     id = db.Column(db.Integer, primary_key=True) # 自动主键

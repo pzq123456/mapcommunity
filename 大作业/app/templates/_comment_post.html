@@ -1,11 +1,22 @@
 <table>
-    <tr> 
-        <td><img src="{{ follow_post.avatar(36) }}"></td>
+    <tr style="background-color:#df9bf6;"> 
+        
+            
+            <td><img src="{{ follow_post.avatar(36) }}"></td>
         <td>
+            
             <a href="{{ url_for('user', username=follow_post.username) }}">
-                {{ follow_post.username }}
+
+               <p style="background-color:#ebf69b;">{{ follow_post.username }}
             </a>
-            的帖子:<br>{{ follow_post.body }}
+              :</p> 
+            <p style="background-color: #bdd4f3 ;">
+                {{ follow_post.body }}
+            </p>
+       
         </td>
+
+       
+        
     </tr>   
 </table>
