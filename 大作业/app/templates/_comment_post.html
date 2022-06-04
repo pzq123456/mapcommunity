@@ -1,5 +1,5 @@
 <table>
-    <tr style="background-color:#df9bf6;"> 
+    <tr> 
         
             
             <td><img src="{{ follow_post.avatar(36) }}"></td>
@@ -7,12 +7,12 @@
             
             <a href="{{ url_for('user', username=follow_post.username) }}">
 
-               <p style="background-color:#ebf69b;">{{ follow_post.username }}
+               <p style="background-color:#ebf69b8a;">{{ follow_post.username }}
             </a>
-              :</p> 
-            <p style="background-color: #bdd4f3 ;">
-                {{ follow_post.body }}
-            </p>
+            :{{ follow_post.body }}</p> 
+            
+                
+            
        
         </td>
 

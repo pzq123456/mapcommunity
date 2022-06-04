@@ -96,6 +96,7 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.order_by(Post.timestamp.desc()).all()
+    #posts = Post.query.filter_by(user_id=user.id).order_by(Post.timestamp.desc()).all()
     follow_posts = Follow_Post.query.filter_by(username=username).all()
     return render_template('user.html', user=user, posts=posts,follow_posts=follow_posts)
 
@@ -110,7 +111,7 @@ def edit_profile():
         current_user.about_me = form.about_me.data
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('edit_profile'))
+        return redirect(url_for('user',username=current_user.username))# format.(current_user.username)
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me

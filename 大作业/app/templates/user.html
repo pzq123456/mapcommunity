@@ -18,17 +18,23 @@
     </tr>
 </table>    
     <hr>
+
     
-    {% for post in posts %}
-        {% for follow_post in follow_posts %}
-            {% if post.id==follow_post.post_id %}
+        {% for post in posts %}
+        
+            {% if post.author.id==user.id %}
                 {% include '_post.html' %}
-                {% if follow_post.post_id== post.id %}
-                    {% for follow_post in follow_posts %}
-                    {% include '_comment_post.html' %}
-                    {% endfor%}
-                {% endif %}
-                <h1>这是用户评论</h1>
+                {% for follow_post in follow_posts %}
+                    {% if post.id==follow_post.post_id %}
+                        {% include '_comment_post.html' %}
+                    {% endif %}
+                {% endfor%}
             {% endif %}
-        {% endfor%}
+        
     {% endfor %}
+
+
+
+
+    </div>
+   
