@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<head>
+    {{ moment.include_moment() }} <!--渲染moment.js库-->
+</head>
+<body>
     <h1>欢迎, {{ current_user.username }}!</h1>
 <!--防止home.html模板在尝试呈现不存在的Web表单时崩溃-->
     {% if form %}
@@ -30,13 +34,14 @@
         {% for follow_post in follow_posts %}
             {% if post.id==follow_post.post_id %}
                 {% include '_comment_post.html' %}
-                <h3>这是用户评论</h3>
+                
             {% endif %}
         {% endfor%}
     {% endfor %}
 
     <h3>------------评论区 请先输入要跟帖的帖子编号 然后进行跟帖------------</h3>
     {% include '_comment.html' %}
+    
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
@@ -46,3 +51,8 @@
     </ul>
     {% endif %}
     {% endwith %}
+
+
+
+</body>
+    

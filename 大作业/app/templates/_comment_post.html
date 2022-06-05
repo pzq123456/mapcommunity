@@ -1,3 +1,4 @@
+<div style="background-color: #a6e5bdaa;">
 <table>
     <tr> 
         
@@ -9,7 +10,7 @@
 
                <p style="background-color:#ebf69b8a;">{{ follow_post.username }}
             </a>
-            :{{ follow_post.body }}</p> 
+            {{ moment(follow_post.timestamp).fromNow() }}:{{ follow_post.body }}</p> 
             
                 
             
@@ -20,3 +21,4 @@
         
     </tr>   
 </table>
+</div>

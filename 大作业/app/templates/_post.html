@@ -1,11 +1,11 @@
-
+<div style="background-color: #bbdc6187;"></div>
     <table>
         <tr>
             <h3>------------------------------第{{post.id }}条帖子-------------------------------</h3>
         </tr>
     </table>
     
-    
+    <div style="background-color: #b331aaaa;">
     <table>
     
         <tr style="background-color:#a37df0;">
@@ -25,13 +25,13 @@
     
     </table>
     
-    
+    </div>
     <table>
         <tr>
-            <h3>-------------发帖时间：{{post.timestamp }}---------------</h3>
+            <h3>-------------发帖时间：{{ moment(post.timestamp).fromNow() }}---------------</h3>
         </tr>
     </table>
     
-
+</div>
 
 <!---子模板 一次只渲染一条帖子-->

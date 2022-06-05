@@ -29,6 +29,7 @@ def before_request():
 @login_required # 限制访问 只有登录后才能访问
 def home():
     form = PostForm()
+    comment_form = CommentForm() # 实例化用户评论类
     if form.validate_on_submit():
         post = Post(body=form.post.data, author=current_user,lon=form.lon.data,lat=form.lat.data)
         db.session.add(post)
@@ -39,7 +40,7 @@ def home():
     #follow_post = Follow_Post.query.filter_by(post_id=2).all() # 测试 获取某一个一个帖子的所有跟帖
     follow_posts = Follow_Post.query.all()
     return render_template("home.html", title='主 页', form=form,
-                           posts=posts,follow_posts=follow_posts)
+                           posts=posts,follow_posts=follow_posts,comment_form =comment_form )
 
 
 
