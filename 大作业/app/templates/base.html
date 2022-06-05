@@ -1,7 +1,9 @@
 <!DOCTYPE html> 
 <html>
 <head>
-   
+   <!--
+      该处可以添加样式表css
+   -->
 </head>
 <body> 
 <table width = "100%" border = "1">
@@ -9,8 +11,9 @@
        <td colspan = "2" >
         
 <center>
-         <div>
-            地图社区：
+   <!---我希望你能够为这个导航条添加样式 好让它变得更加美观 最好能悬停后能够有样式变化 添加完删除此注释-->
+         <div id="main_nav">
+            地图社区:
             <a href="{{ url_for('home_map') }}">个人主页</a>
             <a href="{{ url_for('user_map', username=current_user.username) }}">个人资料</a>
             <a href="{{ url_for('explore_map') }}">广场</a>
@@ -24,8 +27,12 @@
 
     <tr valign = "top" >
        <td width = "250" height = "1000" style="background-color:#f290ce9d;">
+
          {% block content %}{% endblock %}
-        
+        <!---
+         这里就是继承父模板的地方
+         为了保证页面风格统一 以后的页面都会继承它
+         -->
             
 
          <!---用以显示错误提示
@@ -34,12 +41,13 @@
          -->
         
        </td>
+
          <td width = "500" height = "1000">
-         <iframe src="/map" style="height: 100%;width: 100%;" >
+         <iframe src="/map" style="height: 100%;width: 100%;"  id="root_map">
          </iframe>
          <!----
-         地图展示框 这个框里面引用的是地图数据渲染引擎
-      -->
+         地图窗口 以后会在不同的窗口添加不同的地图视图以实现不同的地图功能（请求的数据也会不同）
+         -->
         
        </td>
     </tr>
