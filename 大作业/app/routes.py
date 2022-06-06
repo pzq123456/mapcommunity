@@ -1,4 +1,5 @@
 import flask
+import os
 from requests import post
 from app import app,db
 from flask import render_template, flash, redirect, url_for, request,jsonify
@@ -36,6 +37,17 @@ def home():
         db.session.commit()
         flash('帖子发表成功!')
         return redirect(url_for('home'))
+    elif comment_form.validate_on_submit():
+            if (comment_form.post_num.data <=0 or comment_form.post_num.data>Post.query.count()):
+                flash("请输入正确的帖子编号！")
+            else:
+                follow_post = Follow_Post(body=comment_form.comment.data,
+                landlord=Post.query.get(comment_form.post_num.data),
+                username=current_user.username)
+                db.session.add(follow_post)
+                db.session.commit()
+                flash('跟帖成功!')
+                return redirect(url_for('home'))
     posts = current_user.followed_posts().all()
     #follow_post = Follow_Post.query.filter_by(post_id=2).all() # 测试 获取某一个一个帖子的所有跟帖
     follow_posts = Follow_Post.query.all()
@@ -215,7 +227,9 @@ def post_to_dict(post):
         lon = post.lon,
         lat = post.lat,
         content=post.body,
-        digest = md5(post.author.username.lower().encode('utf-8')).hexdigest()
+        digest = md5(post.author.username.lower().encode('utf-8')).hexdigest(),
+        post_id=post.id # 获取帖子编号
+
     )
 
 @app.route('/JSON', methods = ['GET', 'POST'])# 返回数据库中所有记录的post数
@@ -238,27 +252,36 @@ def root_map():
     return render_template('root_map.html')
 
 
-'''
-@app.route('/map', methods = ['GET', 'POST'])# json数据绘制到地图上
-def map():
-    return render_template('root_map.html')
-
-'''
 
 
-'''
- if request.method == 'POST':
-      if not request.form['lon'] or not request.form['lat'] or not request.form['content']:
-         flash('Please enter all the fields', 'error')
-      else:
-         post = Post(lon=request.form['lon'], lat=request.form['lat'],body=request.form['content'],author=current_user )
-         db.session.add(post)
-         db.session.commit()
-         flash('Record was successfully added')
-         return redirect(url_for('map'))
-    elif request.method == 'GET':
-'''
 
+def follow_post_to_dict(follow_post):
+    return OrderedDict(
+        user = follow_post.username,
+        content=follow_post.body,
+        digest = md5(follow_post.username.lower().encode('utf-8')).hexdigest(),
+    )
+
+
+
+@app.route('/FOLLOWPOST/<post_id>', methods = ['GET', 'POST'])# 返回数据库中所有记录的post数
+@login_required # 只有登录才能看到所有的帖子
+def get_follow_post(post_id):
+    follow_post = Follow_Post.query.filter_by(post_id=post_id).order_by(Follow_Post.timestamp.desc()).all()
+    return jsonify(list(map(follow_post_to_dict, follow_post)))
     
     
+
+@app.route('/comment', methods = ['GET', 'POST'])# json数据绘制到地图上
+def comment_map():
+    if request.method == 'POST':
+        follow_post = Follow_Post(body=request.form['content'],
+        landlord=Post.query.get(request.form['post_id']),
+        username=current_user.username)
+        db.session.add(follow_post)
+        db.session.commit()
+        #flash('跟帖成功!')
+        return redirect(url_for('root_map'))
+
+
 
