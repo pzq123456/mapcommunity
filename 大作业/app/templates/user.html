@@ -9,7 +9,7 @@
                 
        
             <td>
-                <div style="background-color: rgba(96, 57, 12, 0.503); border-radius: 6%;" >
+                <div style="background-color: rgba(178, 148, 78, 0.679); border-radius: 6%;width: 700px;;" >
                     <div style="background-color: rgba(178, 148, 78, 0.679);">
                         
                         <div style="background-color: rgba(73, 48, 7, 0.572); border-radius: 6%;" >
@@ -17,15 +17,15 @@
                             <img src="{{ user.avatar(128) }}">
                             
                         </div>
-                        <p style="color:rgb(249, 244, 234); font-weight: bolder;font-size: larger;">用 户：{{ user.username }}</p>
+                        <p style="color:rgb(255, 255, 255); font-weight: bolder;font-size: larger;">用 户：{{ user.username }}</p>
                         </div>
                         
                     </div>
-                    <div style="background-color: rgb(105, 79, 24);border-radius: 10%;">
-                    {% if user.about_me %}<p style="color:rgb(249, 244, 234);">个性签名：{{ user.about_me }}</p>{% endif %}
-                    {% if user.last_seen %}<p style="color:rgb(249, 244, 234);">上次查看此页面: {{ moment(user.last_seen).format('LLL') }}</p>{% endif %}
-                </div>
-                    <center><p style="color:rgb(230, 230, 235); font-size: larger;">粉丝数：{{ user.followers.count() }}, 我的关注数：{{ user.followed.count() }}.</p></center>
+                    
+                    {% if user.about_me %}<p style="color:rgb(255, 255, 255);">个性签名：{{ user.about_me }}</p>{% endif %}
+                    {% if user.last_seen %}<p style="color:rgb(255, 255, 255);">上次查看此页面: {{ moment(user.last_seen).format('LLL') }}</p>{% endif %}
+                
+                    <center><p style="color:rgb(255, 255, 255); font-size: larger;">粉丝数：{{ user.followers.count() }}, 我的关注数：{{ user.followed.count() }}.</p></center>
 
                 </div>
                     
