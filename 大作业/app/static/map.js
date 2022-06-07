@@ -13,7 +13,7 @@ var displayData= function(data){
                 let vpoint = new BMapGL.Point(data[i].lon,data[i].lat);//创建点
                 let title=data[i].user+"的帖子";
                 //在此处动态生成html模板插入content中
-                let avatar_path="https://gravatar.loli.net/avatar/"+data[i].digest+"?d=identicon&s=16";
+                let avatar_path="https://gravatar.loli.net/avatar/"+data[i].digest+"?d=identicon&s=64";
 
                 let post_content=['<center>',
                 '   <form action = "/comment" method = "post">',
@@ -114,7 +114,7 @@ marker.addEventListener('mouseover', function(){
             for (let i = 0; i < data.length; i++) {
 
                 let post_table=active_info_win_content.querySelector('tbody');//获取信息窗口内表格（楼主表） 
-                let avatar_path="https://gravatar.loli.net/avatar/"+data[i].digest+"?d=identicon&s=16";
+                let avatar_path="https://gravatar.loli.net/avatar/"+data[i].digest+"?d=identicon&s=32";
                 let tr = document.createElement('tr');
                 post_table.appendChild(tr); //创建行
                     let td_ava = document.createElement('td');

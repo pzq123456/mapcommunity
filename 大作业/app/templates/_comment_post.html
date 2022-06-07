@@ -17,7 +17,12 @@
     <tr> 
         
             
-            <td><img src="{{ follow_post.avatar(36) }}"></td>
+            <td>
+                <div  style="width:32px; height:32px; border-radius:100%; overflow:hidden;">
+                    <img src="{{ follow_post.avatar(36) }}">
+                    </div>
+                
+            </td>
         <td>
             
             <a href="{{ url_for('user', username=follow_post.username) }}">

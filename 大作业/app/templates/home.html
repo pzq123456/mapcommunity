@@ -5,6 +5,11 @@
 </head>
 
 <body>
+    
+
+    <div  style="width:64px; height:64px; border-radius:100%; overflow:hidden;">
+        <img src="{{ current_user.avatar(64) }}">
+    </div>
     <h1>欢迎, {{ current_user.username }}!</h1>
 <!--防止home.html模板在尝试呈现不存在的Web表单时崩溃-->
     {% if form %}
