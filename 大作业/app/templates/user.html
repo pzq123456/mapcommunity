@@ -9,23 +9,36 @@
                 
        
             <td>
+<<<<<<< HEAD
                 <div style="background-color: rgba(221, 175, 124, 0.503); border-radius: 6%; width: 650px;" >
                     <div style="background-color: rgba(146, 95, 24, 0.778);">
+=======
+                <div style="background-color: rgba(178, 148, 78, 0.679); border-radius: 6%;width: 700px;;" >
+                    <div style="background-color: rgba(178, 148, 78, 0.679);">
+>>>>>>> df382297faada4144f063b73aea798827a169fb2
                         
                         <div style="background-color: rgba(144, 93, 11, 0.572); border-radius: 6%;" >
                         <div  style="width:128px; height:128px; border-radius:100%; overflow:hidden;">
                             <img src="{{ user.avatar(128) }}">
                             
                         </div>
-                        <p style="color:rgb(249, 244, 234); font-weight: bolder;font-size: larger;">用 户：{{ user.username }}</p>
+                        <p style="color:rgb(255, 255, 255); font-weight: bolder;font-size: larger;">用 户：{{ user.username }}</p>
                         </div>
                         
                     </div>
+<<<<<<< HEAD
                     <div style="background-color: rgb(169, 132, 54);border-radius: 10%; ">
                     {% if user.about_me %}<p style="color:rgb(249, 244, 234);">个性签名：{{ user.about_me }}</p>{% endif %}
                     {% if user.last_seen %}<p style="color:rgb(249, 244, 234);">上次查看此页面: {{ moment(user.last_seen).format('LLL') }}</p>{% endif %}
                 </div>
                     <center><p style="color:rgb(1, 1, 2); font-size: larger;">粉丝数：{{ user.followers.count() }}   <br>我的关注数：{{ user.followed.count() }}</p></center>
+=======
+                    
+                    {% if user.about_me %}<p style="color:rgb(255, 255, 255);">个性签名：{{ user.about_me }}</p>{% endif %}
+                    {% if user.last_seen %}<p style="color:rgb(255, 255, 255);">上次查看此页面: {{ moment(user.last_seen).format('LLL') }}</p>{% endif %}
+                
+                    <center><p style="color:rgb(255, 255, 255); font-size: larger;">粉丝数：{{ user.followers.count() }}, 我的关注数：{{ user.followed.count() }}.</p></center>
+>>>>>>> df382297faada4144f063b73aea798827a169fb2
 
                 </div>
                     
