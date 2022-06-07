@@ -8,14 +8,14 @@
     <div style="background-color: #FCF5E2FF;">
     <table>
     
-        <tr style="background-color:#FCF5E2FF;">
+        <tr style="background-color:#FCF5E2FF;font-size: 20px;">
             
             <td><img src="{{ post.author.avatar(36) }}"></td>
-            <td>
+            <td style="font: size 30px; ">
                 <a href="{{ url_for('user', username=post.author.username) }}">
                     {{ post.author.username }}
                 </a>
-                的帖子:<br>{{ post.body }}
+               的帖子:<br>{{ post.body }}
             </td>
             
             

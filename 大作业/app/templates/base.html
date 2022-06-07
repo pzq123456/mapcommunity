@@ -81,12 +81,18 @@
         
                 </div>
         <center><div>
-                <div class="item"><a href="xx" font-size:20px>地图社区</a></div>
+                <div class="item"><a font-size:20px>地图社区</a></div>
                 <div class="item"><a href="{{ url_for('home_map') }}">个人主页</a></div>
                 <div class="item"><a href="{{ url_for('user_map', username=current_user.username) }}">个人资料</a></div>
                 <div class="item"><a href="{{ url_for('explore_map') }}">广场</a></div>
                 <div class="item"><a href="{{url_for('login_map')}}">登录</a></div>
-            <div class="item"><a href="xx">移动端</a></div></div></center>
+            <div class="item"><a onclick="click1()" >移动端</a></div></div></center>
+               <script>
+                   function click1()
+                   {
+                  alert("敬请期待！")
+                    }
+               </script>
             </div>
         
                 <div class="clear"></div></div></div>
@@ -121,13 +127,15 @@
         
        </td>
     </tr>
-    <tr>
+<div class="foot">
+    <tr style="background-color:#31393c;height: 40px;">
        <td colspan = "2" >
           <center>
-             页脚
+            <a style="color:#F8E5C3FF;"> @地图社区 2022 
           </center>
        </td>
     </tr>
+<div>
  </table>
 
 </body> 

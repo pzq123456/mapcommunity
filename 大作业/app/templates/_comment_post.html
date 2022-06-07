@@ -22,7 +22,7 @@
             
             <a href="{{ url_for('user', username=follow_post.username) }}">
 
-               <p style="background-color:#FCF5E2FF;">{{ follow_post.username }}
+               <p style="background-color:#FCF5E2FF;font-size:20px;">{{ follow_post.username }}
             </a>
             {{ moment(follow_post.timestamp).fromNow() }}:{{ follow_post.body }}</p> 
             
