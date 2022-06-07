@@ -2,6 +2,19 @@ var map = new BMapGL.Map("container");
 
 var point = new BMapGL.Point(120.131267, 36.005814);//学校南门
 map.centerAndZoom(point, 15);// 创建地图实例 
+map.setMapStyleV2({     
+    styleId: '3c0f68f9f5a184940655a116fdd9316e'
+  });
+
+  var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
+  map.addControl(scaleCtrl);
+  var zoomCtrl = new BMapGL.ZoomControl();  // 添加缩放控件
+  map.addControl(zoomCtrl);
+  var cityCtrl = new BMapGL.CityListControl();  // 添加城市列表控件
+  map.addControl(cityCtrl);
+  var locationControl = new BMapGL.LocationControl();  // 添加定位控件
+  map.addControl(locationControl);
+
 
 var width=700;
 var height=500;
@@ -55,12 +68,12 @@ var displayData= function(data){
 
 var html_content=['<center>',
 '   <form action = "/map" method = "post">',
-'      <label for = "lon">经度</label><br>',
-'      <input type = "float" name = "lon" placeholder ="120.131267"/><br>',
-'      <label for = "lat">纬度</label><br>',
-'      <input type = "float" name = "lat" placeholder ="36.005814"/><br>',
-'      <label for = "content">留言内容</label><br>',
-'      <textarea name = "content" placeholder = "Hello World!" style="width: 500px;"></textarea><br>',
+'      <label for = "lon" style="visibility:hidden;">经度</label><br>',
+'      <input type = "float" name = "lon" placeholder ="120.131267"/ style="visibility:hidden;"><br>',
+'      <label for = "lat" style="visibility:hidden;">纬度</label><br>',
+'      <input type = "float" name = "lat" placeholder ="36.005814"/ style="visibility:hidden;"><br>',
+'      <label for = "content">帖子正文</label><br>',
+'      <textarea name = "content" placeholder = "Hello World!" style="width: 500px;height: 250px;""></textarea><br>',
 '      <input type = "submit" value = "Submit" />',
 '   </form>',
 '</center>'].join("");
@@ -71,7 +84,7 @@ var html_content=['<center>',
 map.addEventListener('click', function (e) {
     alert('点击位置经纬度：' +'经度：'+ e.latlng.lng + '纬度：'+ e.latlng.lat+ " 请将鼠标移至点上进行留言");
     var new_point=new BMapGL.Point(e.latlng.lng, e.latlng.lat);
-    add_html_infowindow_on_map(map,new_point,width,height,"<center><h7 style='color:#4798cf;'>地图留言板：</h7></center>",html_content);
+    add_html_infowindow_on_map(map,new_point,width,height,"<center><h7 style='color:#4798cf;'>发帖子：</h7></center>",html_content);
 });
 
 

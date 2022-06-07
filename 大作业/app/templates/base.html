@@ -54,20 +54,20 @@
    </style>
    
 </head>
-<body> 
+
    
 <table width = "100%" >
     <tr>
        <td colspan = "2" >
          <body> 
-         <div id="mainMenu20180622">
-            <div class="menu">
+         <div id="mainMenu20180622" >
+            <div class="menu" >
                 <div class="right">
                     <div class="item">
                         <a >
                             <div style="zoom:1;display:inline;display:inline-block;font-size:2.307em;font-weight:bold;background:#71a262;color:#fff;line-height: 1em;vertical-align: -0.3em;border-radius: 0.5em;overflow: hidden;transform:rotate(10deg);width:1em;text-align:center">hi</div>
                             欢迎使用本论坛~</a></div>
-                    <div class="item">
+                    <div class="item" style="box-shadow: 0 8px 16px 0 rgba(253, 250, 250, 0.559), 0 6px 20px 0 rgba(245, 246, 247, 0.19);">
                         <a href="{{ url_for('logout') }}" target="_blank">
                             <nobr>
                                 <svg class="svg1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 144.1 167">
@@ -79,13 +79,14 @@
                  <img border="0" src="../static/logo1_2.png" alt="Pulpit rock" width="110" height="80">
         
                 </div>
-        <center><div>
-                <div class="item"><a font-size:20px>地图社区</a></div>
-                <div class="item"><a href="{{ url_for('home_map') }}">个人主页</a></div>
-                <div class="item"><a href="{{ url_for('user_map', username=current_user.username) }}">个人资料</a></div>
-                <div class="item"><a href="{{ url_for('explore_map') }}">广场</a></div>
-                <div class="item"><a href="{{url_for('login_map')}}">登录</a></div>
-            <div class="item"><a onclick="click1()" >移动端</a></div></div></center>
+        <center>
+               <div><div class="item" ><a font-size:20px>地图社区</a></div>
+                <div class="item" style="box-shadow: 0 8px 16px 0 rgba(253, 250, 250, 0.559), 0 6px 20px 0 rgba(245, 246, 247, 0.19);"><a href="{{ url_for('home_map') }}">个人主页</a></div>
+                <div class="item" style="box-shadow: 0 8px 16px 0 rgba(253, 250, 250, 0.559), 0 6px 20px 0 rgba(245, 246, 247, 0.19);"><a href="{{ url_for('user_map', username=current_user.username) }}">个人资料</a></div>
+                <div class="item" style="box-shadow: 0 8px 16px 0 rgba(253, 250, 250, 0.559), 0 6px 20px 0 rgba(245, 246, 247, 0.19);"><a href="{{ url_for('explore_map') }}">广场</a></div>
+                <div class="item" style="box-shadow: 0 8px 16px 0 rgba(253, 250, 250, 0.559), 0 6px 20px 0 rgba(245, 246, 247, 0.19);"><a href="{{url_for('login_map')}}">登录</a></div>
+            <div class="item" style="box-shadow: 0 8px 16px 0 rgba(253, 250, 250, 0.559), 0 6px 20px 0 rgba(245, 246, 247, 0.19);"><a onclick="click1()" >移动端</a></div></div>
+         </center>
                <script>
                    function click1()
                    {
