@@ -20,7 +20,6 @@ var width=700;
 var height=500;
 
 var displayData= function(data){
-
             for (let i = 0; i < data.length; i++) 
             {
                 let vpoint = new BMapGL.Point(data[i].lon,data[i].lat);//创建点
@@ -28,17 +27,7 @@ var displayData= function(data){
                 //在此处动态生成html模板插入content中
                 let avatar_path="https://gravatar.loli.net/avatar/"+data[i].digest+"?d=identicon&s=64";
 
-                let post_content=['<center>',
-                '   <form action = "/comment" method = "post">',
-                '      <label for = "post_id">帖子编号</label><br>',
-                '      <input type = "int" name = "post_id"/><br>',
-                '      <label for = "content">跟帖内容</label><br>',
-                '      <textarea name = "content" style="width: 200px;height:100px;"></textarea><br>',
-                '      <input type = "submit" value = "Submit" />',
-                '   </form>',
-                ].join("");
-                post_content=post_content+
-                ['<table border="1">',
+                let post_content=['<table >',
                 '<tbody>',
                 '    <tr>',
                 '        <td><img src='+avatar_path+'></td>',
@@ -46,7 +35,18 @@ var displayData= function(data){
                 '        </td>',
                 '    </tr>   ',
                 '</tbody>',
-            '</table>','</center>'].join("");
+            '</table>'].join("");
+                post_content=post_content+[
+                '   <form action = "/comment" method = "post">',
+                '      <label for = "post_id" style="visibility:hidden;">帖子编号</label><br>',
+                '      <input type = "int" name = "post_id" style="visibility:hidden;"><br>',
+                '      <label for = "content">跟帖内容</label><br>',
+                '      <textarea name = "content" style="width: 300px;height:150px;background-image: url(../static/R-C.jpg) ;background-repeat: no-repeat; color: rgb(33, 18, 2);font-size: larger;"></textarea><br>',
+                '      <input type = "submit" value = "Submit" />',
+                '   </form>',
+                ].join("");
+                
+            
                 add_simple_infowindow_on_map(map,vpoint,width,height,title,post_content,data[i].digest,data[i].post_id);                            
             } 
         }
@@ -66,17 +66,20 @@ var displayData= function(data){
 
 
 
-var html_content=['<center>',
+var html_content=[
+'<div style="background-color:#F8E5C3FF;">',
+'   <center>',
 '   <form action = "/map" method = "post">',
 '      <label for = "lon" style="visibility:hidden;">经度</label><br>',
 '      <input type = "float" name = "lon" placeholder ="120.131267"/ style="visibility:hidden;"><br>',
 '      <label for = "lat" style="visibility:hidden;">纬度</label><br>',
 '      <input type = "float" name = "lat" placeholder ="36.005814"/ style="visibility:hidden;"><br>',
 '      <label for = "content">帖子正文</label><br>',
-'      <textarea name = "content" placeholder = "Hello World!" style="width: 500px;height: 250px;""></textarea><br>',
+' <textarea name = "content" placeholder = "写点什么吧！" style="width: 350px;height: 250px; background-image: url(../static/R-C.jpg) ;background-repeat: no-repeat; color: rgb(33, 18, 2);font-size: larger;" ></textarea><br>',
 '      <input type = "submit" value = "Submit" />',
 '   </form>',
-'</center>'].join("");
+'</center>',
+'</div>'].join("");
 
 //html_content=html_content+"<br><hr/>{%- for message in get_flashed_messages() %}{{ message }}{%- endfor %}"
 
@@ -102,6 +105,7 @@ function add_simple_infowindow_on_map(map,my_point,win_width,win_height,title_te
 	}
 
 var infoWindow = new BMapGL.InfoWindow(content_text, opts);  // 创建信息窗口对象 
+
 marker.addEventListener('mouseover', function(){     
         map.openInfoWindow(infoWindow, my_point); //开启信息窗口
         //现在需要获取该信息窗口对应的帖子编号 并利用ajax向后端请求跟帖内容    
@@ -168,7 +172,9 @@ marker.addEventListener('mouseover', function(){
 
 
 
-map.enableScrollWheelZoom(true);   //开启鼠标滚轮缩放
+
+
+
 
 
 
