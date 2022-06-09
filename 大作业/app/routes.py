@@ -284,4 +284,3 @@ def comment_map():
         return redirect(url_for('root_map'))
 
 
-

@@ -61,7 +61,7 @@
        <td colspan = "2" >
          <body> 
          <div id="mainMenu20180622" >
-            <div class="menu" >
+            <div class="menu" style="box-shadow: 0px 10px 20px 3px#2c1b02a1;border-radius: 10px;">
                 <div class="right">
                     <div class="item">
                         <a >
@@ -104,7 +104,9 @@
     <tr valign = "top" >
        <td width = "250" height = "925" style="background-color:#F8E5C3FF;">
 
-         {% block content %}{% endblock %}
+         <div style="box-shadow: 0px 0px 10px 3px#2c1b02a1;height: 100%;border-radius: 10px;">
+            {% block content %}{% endblock %}
+         </div>
         <!---
          这里就是继承父模板的地方
          为了保证页面风格统一 以后的页面都会继承它
@@ -119,8 +121,11 @@
        </td>
 
          <td width = "500" height = "925">
-         <iframe src="/map" style="height: 100%;width: 100%;"  id="root_map">
-         </iframe>
+            <div style="height:100%; box-shadow: 0px 0px 10px 3px#31393c;">
+               <iframe src="/map" style="height: 100%;width: 100%;"  id="root_map">
+               </iframe>
+            </div>
+         
          <!----
          地图窗口 以后会在不同的窗口添加不同的地图视图以实现不同的地图功能（请求的数据也会不同）
          -->
@@ -128,7 +133,8 @@
        </td>
     </tr>
 <div class="foot">
-    <tr style="background-color:#31393c;height: 40px;">
+  
+    <tr style="background-color:#31393c;height: 40px;" >
        <td colspan = "2" >
           <center>
             <a style="color:#F8E5C3FF;"> @地图社区 2022 

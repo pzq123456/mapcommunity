@@ -2,6 +2,36 @@
 <head>
     {{ moment.include_moment() }} <!--渲染moment.js库-->
 </head>
+<style>
+     .follow{
+            width: 80px;
+            height: 30px;
+            background: rgb(235, 112, 5);/*灰色*/
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 2px;
+            cursor: pointer;
+            }
+        .follow:hover {
+            background: #f1f1f7;
+        }
+        .unfollow
+        {
+            width: 80px;
+            height: 30px;
+            background: rgba(200, 200, 200, 1);/*灰色*/
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .unfollow:hover {
+            background: #fa7b05;
+        }
+
+</style>
 <body>
     <table>
         <tr valign="top">
@@ -9,15 +39,15 @@
                 
        
             <td>
-                <div style="background-color: rgba(178, 148, 78, 0.679); border-radius: 6%;width: 650px;;" >
-                    <div style="background-color: rgba(178, 148, 78, 0.679);">
+                <div style="background-color: rgba(178, 148, 78, 0.679); border-radius: 6%;width: 650px;box-shadow: 0px 0px 10px 3px#31393c;" >
+                    <div style="background-color: rgba(178, 148, 78, 0.679);border-radius: 6%;">
                         
-                        <div style="background-color: rgba(144, 93, 11, 0.572); border-radius: 6%;" >
-                        <div  style="width:128px; height:128px; border-radius:100%; overflow:hidden;">
+                        <div style="background-color: rgba(144, 93, 11, 0.572); border-radius: 6%;box-shadow: 0px 0px 10px 3px#503703;" >
+                        <div  style="width:128px; height:128px; border-radius:100%; overflow:hidden;box-shadow: 0px 0px 10px 3px#71520f;">
                             <img src="{{ user.avatar(128) }}">
                             
                         </div>
-                        <p style="color:rgb(255, 255, 255); font-weight: bolder;font-size: larger;">用 户：{{ user.username }}</p>
+                        <center><p style="color:rgb(255, 255, 255); font-weight: bolder;font-size: xx-large;">用 户：{{ user.username }}</p></center>
                         </div>
                         
                     </div>
@@ -32,9 +62,9 @@
                 {% if user == current_user %}
                     <p><a href="{{ url_for('edit_profile') }}">编辑资料</a></p>
                 {% elif not current_user.is_following(user) %}
-                    <p><a href="{{ url_for('follow', username=user.username) }}">关注</a></p>
+                    <div class="follow"><a href="{{ url_for('follow', username=user.username) }}">关注</a></div>
                 {% else %}
-                    <p><a href="{{ url_for('unfollow', username=user.username) }}">取消关注</a></p>
+                    <div class="unfollow"><a href="{{ url_for('unfollow', username=user.username) }}">取消关注</a></div>
                 {% endif %}
             </td>
         </tr>

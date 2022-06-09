@@ -5,9 +5,10 @@
         </tr>
     </table>
     
-    <div style="background-color: #FCF5E2FF;">
+    <div style="background-color: #FCF5E2FF; box-shadow: 0px 0px 20px 3px#2c1f0282;border-radius: 3%;">
     <table>
     
+        
         <tr style="background-color:#FCF5E2FF;font-size: 20px;">
             
             <td>
@@ -19,14 +20,21 @@
                 <a href="{{ url_for('user', username=post.author.username) }}">
                     {{ post.author.username }}
                 </a>
-               的帖子:<br>{{ post.body }}
+                的帖子:
             </td>
             
             
         </tr>   
+
     
     
     
+    </table>
+
+    <table>
+        <tr style="background-color:#FCF5E2FF;font-size: 20px;">
+            <br>{{ post.body }}<br>
+        </tr>
     </table>
     
     </div>
